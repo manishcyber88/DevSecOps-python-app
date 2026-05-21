@@ -1,0 +1,50 @@
+/* Visual polish, animations, and responsive tweaks */
+:root{
+  --accent:#6c63ff;
+  --bg1:#0f172a;
+  --bg2:#0b1220;
+  --card:#0f172a88;
+}
+html,body{height:100%;}
+body{
+  background: linear-gradient(135deg,var(--bg1),var(--bg2));
+  color:#e6eef8;
+  font-family:Inter,Segoe UI,Helvetica,Arial,sans-serif;
+}
+.navbar{background:transparent !important}
+.navbar .nav-link{ color: #e6eef8 !important; }
+.navbar .nav-link:hover{ color: var(--accent) !important; }
+
+.jumbotron{
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+  padding:2rem;
+  border-radius:12px;
+  box-shadow: 0 6px 30px rgba(0,0,0,0.6);
+  position:relative;
+  overflow:hidden;
+}
+.hero-logo{height:80px; width:80px; vertical-align:middle; margin-right:12px; animation: float 4s ease-in-out infinite;}
+
+.auth-wrapper{display:flex; align-items:center; justify-content:center; min-height:60vh}
+.auth-card{width:100%; max-width:420px; padding:1.6rem; border-radius:12px; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.015)); box-shadow:0 8px 40px rgba(0,0,0,0.6)}
+.auth-brand{display:flex; align-items:center; gap:12px; margin-bottom:8px}
+.auth-brand img{height:48px; width:48px}
+.form-label{color: #cfe8ff}
+.form-control{background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.04); color: #e6eef8}
+.form-control:focus{box-shadow:0 6px 18px rgba(108,99,255,0.12); border-color:var(--accent)}
+.password-toggle{cursor:pointer; color:#9fb3ff}
+@keyframes float{0%{transform:translateY(0)}50%{transform:translateY(-8px)}100%{transform:translateY(0)}}
+.btn-primary{background:var(--accent); border:0; transition:transform .18s ease, box-shadow .18s ease}
+.btn-primary:hover{transform:translateY(-3px); box-shadow:0 8px 20px rgba(108,99,255,0.25)}
+.card{background:rgba(255,255,255,0.02); border:0}
+.fade-in{animation:fadeInUp .6s ease both}
+@keyframes fadeInUp{from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:none}}
+.search-results li{transition:transform .18s ease, box-shadow .18s ease}
+.search-results li:hover{transform:translateX(6px); box-shadow:0 6px 18px rgba(0,0,0,0.5)}
+.particles-container{position:absolute; inset:0; pointer-events:none}
+.site-header{display:flex; align-items:center}
+
+/* Responsive */
+@media (max-width:720px){
+  .hero-logo{height:56px; width:56px}
+}

@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+{% block content %}
+  <h2 class="fade-in">Search Documents</h2>
+  <form method="post" class="fade-in">
+    <div class="mb-3">
+      <input name="q" class="form-control" value="{{ q }}" placeholder="Search...">
+    </div>
+    <button class="btn btn-primary">Search</button>
+  </form>
+  <hr>
+  <h4>Results</h4>
+  <ul class="list-unstyled search-results">
+    {% for r in results %}
+      <li class="card p-2 mb-2 fade-in"><strong>{{ r.title }}</strong>: {{ r.content }}</li>
+    {% else %}
+      <li>No results</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+{% block content %}
+  <div class="auth-wrapper">
+    <div class="auth-card fade-in">
+      <div class="auth-brand">
+        <img src="/static/images/logo.svg" alt="logo">
+        <div>
+          <h4 class="mb-0">Welcome back</h4>
+          <small class="text-muted">Sign in to continue</small>
+        </div>
+      </div>
+      <form method="post">
+        <div class="mb-3">
+          <label class="form-label">Username</label>
+          <input class="form-control" name="username" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Password</label>
+          <div class="input-group">
+            <input id="login-password" type="password" class="form-control" name="password" required>
+            <span class="input-group-text password-toggle" data-target="#login-password">Show</span>
+          </div>
+        </div>
+        <button class="btn btn-primary w-100">Login</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}
