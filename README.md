@@ -381,6 +381,122 @@ CTRL + C
 
 ---
 
+# 🔎 Security Vulnerability Analysis using Bandit (SAST)
+
+This project uses **Bandit** for Static Application Security Testing (SAST) to identify insecure coding practices and vulnerabilities inside the Flask application.
+
+## 🔧 Run Bandit Scan
+
+Install Bandit:
+
+```bash
+pip install bandit
+```
+
+Run security scan:
+
+```bash
+python -m bandit -r .
+```
+
+---
+
+# 🚨 Vulnerabilities Identified
+
+## 1. SQL Injection (Critical)
+
+- In `/login` route (line 78): Direct string concatenation with user input
+
+```python
+query = "SELECT * FROM users WHERE username = '%s' AND password = '%s'" % (username, password)
+```
+
+- In `/register` route (line 56): Same vulnerability
+
+```python
+cur.execute("INSERT INTO users (username, password) VALUES ('%s', '%s')" % (username, password))
+```
+
+- In `/search` route (line 150): String concatenation vulnerability
+
+```python
+sql = "SELECT * FROM docs WHERE title LIKE '%" + q + "%' OR content LIKE '%" + q + "%'"
+```
+
+---
+
+## 2. Hardcoded Weak Secret Key (High)
+
+- Line 11:
+
+```python
+app.secret_key = 'devsecops-insecure-secret'
+```
+
+- Should never hardcode secrets; should use environment variables
+
+---
+
+## 3. Plaintext Password Storage (Critical)
+
+- Passwords stored directly in database without hashing
+- Demo admin user has password `admin` in plaintext (line 39)
+- Line 54 comment explicitly states "storing plaintext"
+
+---
+
+## 4. Default/Weak Credentials (Critical)
+
+- Demo admin credentials:
+  - username: `admin`
+  - password: `admin`
+  - (line 39)
+
+---
+
+## 5. Debug Mode Enabled in Production (High)
+
+- Line 155:
+
+```python
+debug=True
+```
+
+- Exposes sensitive information and allows arbitrary code execution
+
+---
+
+## 6. Missing Input Validation
+
+- No validation on username, password, or search queries
+- Relies only on `secure_filename()` for file uploads which can be bypassed for path traversal
+
+---
+
+## 7. Exposure to Cross-Site Scripting (XSS) via Error Messages
+
+- Line 65:
+
+```python
+flash('Registration failed: ' + str(e), 'danger')
+```
+
+- Exception messages might contain user input and aren't sanitized
+
+---
+
+## 8. Information Disclosure
+
+- Line 65: Stack traces exposed to users via flash messages
+- Line 155: Running on `0.0.0.0` (all interfaces) with debug enabled
+
+---
+
+⚠️ These vulnerabilities are intentionally embedded for DevSecOps training and security demonstration purposes to teach secure coding, security scanning, and remediation techniques.
+
+---
+
+
 # 🔐 DevSecOps Workflow
 
 ```text
